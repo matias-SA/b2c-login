@@ -69,95 +69,145 @@
         /* Estilizar botón de empresa */
         .accountButton {
             width: 100% !important;
-            padding: 14px 20px !important;
-            border: 2px solid #2196f3 !important;
-            border-radius: 8px !important;
-            background: linear-gradient(135deg, #2196f3, #21cbf3) !important;
+            padding: 16px 20px !important;
+            border: none !important;
+            border-radius: 12px !important;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
             color: white !important;
-            font-size: 14px !important;
+            font-size: 15px !important;
             font-weight: 600 !important;
             text-decoration: none !important;
             transition: all 0.3s ease !important;
             display: block !important;
             text-align: center !important;
-            margin: 10px 0 !important;
+            margin: 15px 0 25px 0 !important;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3) !important;
+            cursor: pointer !important;
         }
 
         .accountButton:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4) !important;
+            background: linear-gradient(135deg, #4338ca, #6d28d9) !important;
         }
 
-        /* Estilizar campos locales */
+        /* Separador elegante */
+        .custom-separator {
+            display: flex !important;
+            align-items: center !important;
+            text-align: center !important;
+            margin: 25px 0 !important;
+        }
+
+        .custom-separator::before,
+        .custom-separator::after {
+            content: '' !important;
+            flex: 1 !important;
+            height: 1px !important;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent) !important;
+        }
+
+        .custom-separator span {
+            padding: 0 20px !important;
+            color: #6b7280 !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+        }
+
+        /* Mejorar estilo de inputs */
         .textInput {
             width: 100% !important;
-            padding: 14px 16px !important;
-            border: 2px solid #e0e0e0 !important;
-            border-radius: 8px !important;
-            font-size: 14px !important;
-            margin: 10px 0 !important;
+            padding: 16px 18px !important;
+            border: 2px solid #e5e7eb !important;
+            border-radius: 12px !important;
+            font-size: 15px !important;
+            font-family: 'Segoe UI', sans-serif !important;
+            margin: 8px 0 15px 0 !important;
             transition: all 0.3s ease !important;
-            background: #fafafa !important;
+            background: #f8fafc !important;
+            color: #374151 !important;
         }
 
         .textInput:focus {
             border-color: #667eea !important;
             background: white !important;
             outline: none !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+            transform: translateY(-1px) !important;
         }
 
-        /* Estilizar labels */
+        .textInput:hover:not(:focus) {
+            border-color: #d1d5db !important;
+            background: #ffffff !important;
+        }
+
+        /* Estilizar labels mejorados */
         .entry-item label {
             display: block !important;
-            margin-bottom: 5px !important;
-            color: #333 !important;
-            font-weight: 500 !important;
+            margin-bottom: 8px !important;
+            color: #374151 !important;
+            font-weight: 600 !important;
             font-size: 14px !important;
+            letter-spacing: 0.5px !important;
         }
 
-        /* Estilizar botón de envío */
+        /* Estilizar botón de envío mejorado */
         .sendButton {
             width: 100% !important;
             background: linear-gradient(135deg, #667eea, #764ba2) !important;
             color: white !important;
             border: none !important;
-            padding: 14px 20px !important;
-            border-radius: 8px !important;
-            font-size: 14px !important;
+            padding: 16px 20px !important;
+            border-radius: 12px !important;
+            font-size: 15px !important;
             font-weight: 600 !important;
             cursor: pointer !important;
             transition: all 0.3s ease !important;
-            margin-top: 10px !important;
+            margin-top: 20px !important;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
         }
 
         .sendButton:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3) !important;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
+            background: linear-gradient(135deg, #5b21b6, #6366f1) !important;
         }
 
-        /* Enlace de contraseña olvidada */
+        .sendButton:active {
+            transform: translateY(-1px) !important;
+        }
+
+        /* Enlace de contraseña olvidada mejorado */
         .entry-item a {
             color: #667eea !important;
             text-decoration: none !important;
             font-size: 13px !important;
+            font-weight: 500 !important;
+            transition: color 0.2s ease !important;
         }
 
         .entry-item a:hover {
+            color: #4f46e5 !important;
             text-decoration: underline !important;
         }
 
-        /* OCULTAR elementos específicos basados en la estructura que vimos */
+        /* OCULTAR elementos específicos */
         .create,
         div.create,
-        .divider:last-of-type,
-        div[class="create"] {
+        .divider,
+        div.divider,
+        [class="create"],
+        [class="divider"] {
             display: none !important;
         }
 
-        /* Ocultar el segundo divider y todo después */
-        .localAccount + .divider,
-        .localAccount ~ .divider {
+        /* Ocultar OR específicos */
+        h2:contains("OR"),
+        div:contains("OR"):not(:contains("Portal")):not(:contains("Password")) {
             display: none !important;
         }
 
@@ -179,6 +229,22 @@
             padding: 0 !important;
         }
 
+        /* Mejorar el título de sección */
+        .claims-provider-list-buttons {
+            margin-bottom: 0 !important;
+        }
+
+        /* Estilo para errores */
+        .error_pageLevel {
+            background: #fef2f2 !important;
+            border: 1px solid #fecaca !important;
+            color: #dc2626 !important;
+            padding: 12px 16px !important;
+            border-radius: 8px !important;
+            margin: 15px 0 !important;
+            font-size: 14px !important;
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .login-container {
@@ -188,6 +254,10 @@
             
             h1 {
                 font-size: 20px;
+            }
+            
+            .textInput {
+                padding: 14px 16px !important;
             }
         }
     </style>
@@ -205,88 +275,75 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function removeCreateSection() {
+            function enhanceLoginForm() {
                 setTimeout(function() {
-                    // Atacar específicamente la clase "create" que vimos en el DOM
-                    const createElements = document.querySelectorAll('.create, div.create, [class="create"]');
-                    createElements.forEach(element => {
+                    // Ocultar todos los elementos con clase "divider" y "create"
+                    const unwantedElements = document.querySelectorAll(
+                        '.create, div.create, .divider, div.divider, [class="create"], [class="divider"]'
+                    );
+                    unwantedElements.forEach(element => {
                         element.style.display = 'none';
-                        // También ocultar el padre si es necesario
-                        if (element.parentElement && element.parentElement.children.length === 1) {
-                            element.parentElement.style.display = 'none';
+                    });
+
+                    // Ocultar específicamente elementos que contengan solo "OR"
+                    const allElements = document.querySelectorAll('*');
+                    allElements.forEach(element => {
+                        const text = element.textContent ? element.textContent.trim() : '';
+                        if (text === 'OR' && !element.querySelector('input') && !element.querySelector('button')) {
+                            element.style.display = 'none';
                         }
                     });
 
-                    // Ocultar dividers después del formulario local
-                    const localAccountForm = document.querySelector('#localAccountForm, .localAccount');
-                    if (localAccountForm) {
-                        let nextElement = localAccountForm.nextElementSibling;
-                        while (nextElement) {
-                            const classes = nextElement.className || '';
-                            const text = nextElement.textContent || '';
-                            
-                            if (classes.includes('divider') || 
-                                classes.includes('create') ||
-                                text.includes('OR') || 
-                                text.includes("Don't have")) {
-                                nextElement.style.display = 'none';
-                            }
-                            nextElement = nextElement.nextElementSibling;
+                    // Agregar separador personalizado entre social y local
+                    const socialSection = document.querySelector('.claims-provider-list-buttons');
+                    const localSection = document.querySelector('#localAccountForm, .localAccount');
+                    
+                    if (socialSection && localSection && !document.querySelector('.custom-separator')) {
+                        const separator = document.createElement('div');
+                        separator.className = 'custom-separator';
+                        separator.innerHTML = '<span>o continúa con</span>';
+                        
+                        // Insertar el separador entre las secciones
+                        if (socialSection.nextElementSibling) {
+                            socialSection.parentNode.insertBefore(separator, socialSection.nextElementSibling);
+                        } else {
+                            socialSection.parentNode.appendChild(separator);
                         }
                     }
 
-                    // Método específico basado en la estructura DOM que vimos
-                    const apiDiv = document.getElementById('api');
-                    if (apiDiv) {
-                        // Buscar el div con class="create" específicamente
-                        const createDiv = apiDiv.querySelector('div.create');
-                        if (createDiv) {
-                            createDiv.style.display = 'none';
-                            
-                            // También ocultar el divider que está antes
-                            const previousDiv = createDiv.previousElementSibling;
-                            if (previousDiv && previousDiv.className === 'divider') {
-                                previousDiv.style.display = 'none';
-                            }
-                        }
-
-                        // Buscar elementos por ID createAccount
-                        const createAccount = document.getElementById('createAccount');
-                        if (createAccount) {
-                            createAccount.style.display = 'none';
-                        }
-
-                        // Ocultar enlaces que contengan openSignUpSignIn
-                        const signUpLinks = document.querySelectorAll('a[href*="openSignUpSignIn"]');
-                        signUpLinks.forEach(link => {
-                            if (link.textContent.includes('Sign up now')) {
-                                link.style.display = 'none';
-                                // Ocultar también el contenedor padre
-                                let parent = link.parentElement;
-                                while (parent && parent !== apiDiv) {
-                                    if (parent.children.length === 1) {
-                                        parent.style.display = 'none';
-                                        parent = parent.parentElement;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                            }
-                        });
+                    // Mejorar placeholder de inputs
+                    const emailInput = document.querySelector('input[type="email"], input[name*="email"], input#email');
+                    if (emailInput) {
+                        emailInput.placeholder = '📧 tu@empresa.com';
                     }
 
-                }, 200);
+                    const passwordInput = document.querySelector('input[type="password"], input[name*="password"], input#password');
+                    if (passwordInput) {
+                        passwordInput.placeholder = '🔒 Tu contraseña';
+                    }
+
+                    // Agregar iconos a los labels
+                    const labels = document.querySelectorAll('.entry-item label');
+                    labels.forEach(label => {
+                        const text = label.textContent;
+                        if (text.toLowerCase().includes('email')) {
+                            label.innerHTML = '📧 ' + text;
+                        } else if (text.toLowerCase().includes('password')) {
+                            label.innerHTML = '🔒 ' + text;
+                        }
+                    });
+
+                }, 300);
             }
 
             // Ejecutar múltiples veces para asegurar que funcione
-            removeCreateSection();
-            setTimeout(removeCreateSection, 500);
-            setTimeout(removeCreateSection, 1000);
-            setTimeout(removeCreateSection, 1500);
-            setTimeout(removeCreateSection, 2000);
+            enhanceLoginForm();
+            setTimeout(enhanceLoginForm, 600);
+            setTimeout(enhanceLoginForm, 1000);
+            setTimeout(enhanceLoginForm, 1500);
 
             // Observar cambios en el DOM
-            const observer = new MutationObserver(removeCreateSection);
+            const observer = new MutationObserver(enhanceLoginForm);
             observer.observe(document.body, {
                 childList: true,
                 subtree: true
