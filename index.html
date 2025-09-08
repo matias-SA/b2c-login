@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #2766a2 0%, #1e4a73 100%) !important;
             min-height: 100vh !important;
             display: flex !important;
             align-items: center !important;
@@ -24,7 +24,7 @@
         .login-container {
             background: white !important;
             border-radius: 16px !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+            box-shadow: 0 20px 40px rgba(39, 102, 162, 0.2) !important;
             padding: 40px !important;
             max-width: 450px !important;
             width: 100% !important;
@@ -37,7 +37,7 @@
         .logo {
             width: 80px !important;
             height: 80px !important;
-            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            background: linear-gradient(135deg, #2766a2, #1e4a73) !important;
             border-radius: 50% !important;
             display: flex !important;
             align-items: center !important;
@@ -49,54 +49,31 @@
         }
 
         h1 {
-            color: #333 !important;
+            color: #1e4a73 !important;
             font-size: 24px !important;
             font-weight: 300 !important;
             margin-bottom: 10px !important;
         }
 
         .subtitle {
-            color: #666 !important;
+            color: #5a7a99 !important;
             font-size: 14px !important;
         }
 
-        /* Estilizar elementos de B2C */
-        #api {
-            .divider {
-                display: none;
-            }
-        }
-
-        /* OCULTAR OR DE MANERA SÚPER ESPECÍFICA */
-        h2:contains("OR"),
-        #api h2,
-        .divider,
-        div.divider,
-        [class="divider"],
-        #api > h2,
-        #api div h2 {
+        /* Ocultar elementos no deseados */
+        h2, .divider, div.divider, .create, div.create,
+        #createAccount, .create-account-link, .helpText,
+        [href*="createAccount"], [href*="Sign up now"] {
             display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            height: 0px !important;
-            margin: 0px !important;
-            padding: 0px !important;
-            overflow: hidden !important;
-            position: absolute !important;
-            left: -9999px !important;
         }
 
-        /* Estilizar botón de empresa */
-        .accountButton,
-        .accountButton:link,
-        .accountButton:visited,
-        .accountButton:hover,
-        .accountButton:active {
+        /* Botón de empresa */
+        .accountButton {
             width: 100% !important;
             padding: 16px 20px !important;
             border: none !important;
             border-radius: 12px !important;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+            background: linear-gradient(135deg, #2766a2, #1e4a73) !important;
             color: white !important;
             font-size: 15px !important;
             font-weight: 600 !important;
@@ -105,78 +82,51 @@
             display: block !important;
             text-align: center !important;
             margin: 15px 0 25px 0 !important;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(39, 102, 162, 0.3) !important;
             cursor: pointer !important;
         }
 
         .accountButton:hover {
             transform: translateY(-3px) !important;
-            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4) !important;
-            background: linear-gradient(135deg, #4338ca, #6d28d9) !important;
+            box-shadow: 0 8px 25px rgba(39, 102, 162, 0.4) !important;
+            background: linear-gradient(135deg, #1e4a73, #153a5a) !important;
         }
 
-        /* INPUTS */
-        input[type="email"],
-        input[type="password"], 
-        input[type="text"],
-        input#email,
-        input#password,
-        input[name*="email"],
-        input[name*="password"],
-        .textInput,
-        input.textInput,
-        #localAccountForm input,
-        .localAccount input {
+        /* Inputs */
+        input[type="email"], input[type="password"], input[type="text"], .textInput {
             width: 100% !important;
             padding: 16px 18px !important;
-            border: 2px solid #e5e7eb !important;
+            border: 2px solid #e1e8ed !important;
             border-radius: 12px !important;
             font-size: 15px !important;
             font-family: 'Segoe UI', sans-serif !important;
             margin: 8px 0 15px 0 !important;
             transition: all 0.3s ease !important;
             background: #f8fafc !important;
-            color: #374151 !important;
-            box-sizing: border-box !important;
+            color: #1e4a73 !important;
         }
 
-        input[type="email"]:focus,
-        input[type="password"]:focus,
-        input[type="text"]:focus,
-        input#email:focus,
-        input#password:focus,
-        .textInput:focus,
-        input.textInput:focus,
-        #localAccountForm input:focus,
-        .localAccount input:focus {
-            border-color: #667eea !important;
+        input:focus {
+            border-color: #2766a2 !important;
             background: white !important;
             outline: none !important;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+            box-shadow: 0 0 0 4px rgba(39, 102, 162, 0.1) !important;
             transform: translateY(-1px) !important;
         }
 
         /* Labels */
-        .entry-item label,
-        label,
-        .password-label,
-        .email-label {
+        .entry-item label, label {
             display: block !important;
             margin-bottom: 8px !important;
-            color: #374151 !important;
+            color: #1e4a73 !important;
             font-weight: 600 !important;
             font-size: 14px !important;
-            letter-spacing: 0.5px !important;
         }
 
         /* Botón de envío */
-        .sendButton,
-        button[type="submit"],
-        input[type="submit"],
-        #next,
-        .localAccount button {
+        .sendButton, button[type="submit"] {
             width: 100% !important;
-            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            background: linear-gradient(135deg, #2766a2, #1e4a73) !important;
             color: white !important;
             border: none !important;
             padding: 16px 20px !important;
@@ -186,86 +136,48 @@
             cursor: pointer !important;
             transition: all 0.3s ease !important;
             margin-top: 20px !important;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+            box-shadow: 0 4px 15px rgba(39, 102, 162, 0.3) !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
         }
 
-        .sendButton:hover,
-        button[type="submit"]:hover,
-        input[type="submit"]:hover,
-        #next:hover,
-        .localAccount button:hover {
+        .sendButton:hover, button[type="submit"]:hover {
             transform: translateY(-3px) !important;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
-            background: linear-gradient(135deg, #5b21b6, #6366f1) !important;
+            box-shadow: 0 8px 25px rgba(39, 102, 162, 0.4) !important;
+            background: linear-gradient(135deg, #1e4a73, #153a5a) !important;
         }
 
-        /* Enlace de contraseña olvidada */
-        .entry-item a,
-        a[href*="forgot"],
-        .localAccount a {
-            color: #667eea !important;
+        /* Enlaces */
+        .entry-item a, a[href*="forgot"] {
+            color: #2766a2 !important;
             text-decoration: none !important;
             font-size: 13px !important;
             font-weight: 500 !important;
-            transition: color 0.2s ease !important;
         }
 
-        .entry-item a:hover,
-        a[href*="forgot"]:hover,
-        .localAccount a:hover {
-            color: #4f46e5 !important;
+        .entry-item a:hover, a[href*="forgot"]:hover {
+            color: #1e4a73 !important;
             text-decoration: underline !important;
-        }
-
-        /* OCULTAR elementos específicos */
-        .create,
-        div.create,
-        [class="create"],
-        #createAccount,
-        .create-account-link,
-        .helpText,
-        .localAccount_create_link,
-        [href*="createAccount"],
-        [href*="Sign up now"],
-        [data-bind*="createAccount"] {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            height: 0 !important;
-        }
-
-        /* Reorganizar layout */
-        .localAccount {
-            background: none !important;
-            border: none !important;
-            padding: 0 !important;
         }
 
         /* Separador personalizado */
         .custom-separator {
             display: flex !important;
             align-items: center !important;
-            text-align: center !important;
             margin: 25px 0 !important;
         }
 
-        .custom-separator::before,
-        .custom-separator::after {
+        .custom-separator::before, .custom-separator::after {
             content: '' !important;
             flex: 1 !important;
             height: 1px !important;
-            background: #e5e7eb !important;
+            background: linear-gradient(90deg, transparent, #e1e8ed, transparent) !important;
         }
 
         .custom-separator span {
             padding: 0 20px !important;
-            color: #6b7280 !important;
+            color: #5a7a99 !important;
             font-size: 13px !important;
             font-weight: 500 !important;
-            text-transform: lowercase !important;
-            letter-spacing: 0.5px !important;
         }
 
         /* Responsive */
@@ -274,7 +186,6 @@
                 padding: 20px !important;
                 margin: 10px !important;
             }
-            
             h1 {
                 font-size: 20px !important;
             }
@@ -288,130 +199,39 @@
             <h1>Portal de Proveedores</h1>
             <p class="subtitle">Accede a tu cuenta</p>
         </div>
-
         <div id="api"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function eliminateOR() {
-                setTimeout(function() {
-                    // MÉTODO 1: Buscar todos los H2 y ocultar los que digan "OR"
-                    const allH2 = document.querySelectorAll('h2');
-                    allH2.forEach(h2 => {
-                        if (h2.textContent && h2.textContent.trim() === 'OR') {
-                            h2.remove(); // Eliminar completamente del DOM
-                        }
-                    });
-
-                    // MÉTODO 2: Buscar cualquier elemento que solo contenga "OR"
-                    const allElements = document.querySelectorAll('*');
-                    allElements.forEach(element => {
-                        if (element.textContent && 
-                            element.textContent.trim() === 'OR' && 
-                            !element.querySelector('input') && 
-                            !element.querySelector('button') &&
-                            !element.querySelector('a')) {
-                            element.remove(); // Eliminar completamente
-                        }
-                    });
-
-                    // MÉTODO 3: Buscar específicamente en el contenedor API
-                    const apiDiv = document.getElementById('api');
-                    if (apiDiv) {
-                        const children = Array.from(apiDiv.children);
-                        children.forEach(child => {
-                            if (child.textContent && child.textContent.trim() === 'OR') {
-                                child.remove();
-                            }
-                            // También buscar dentro de los hijos
-                            const innerElements = child.querySelectorAll('*');
-                            innerElements.forEach(inner => {
-                                if (inner.textContent && inner.textContent.trim() === 'OR' && inner.children.length === 0) {
-                                    inner.remove();
-                                }
-                            });
-                        });
-                    }
-
-                    // MÉTODO 4: Usar querySelector específico para H2 con texto OR
-                    const orHeaders = document.evaluate(
-                        "//h2[text()='OR']",
-                        document,
-                        null,
-                        XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
-                        null
-                    );
-                    for (let i = 0; i < orHeaders.snapshotLength; i++) {
-                        orHeaders.snapshotItem(i).remove();
-                    }
-
-                    // MÉTODO 5: Agregar separador personalizado
-                    const socialSection = document.querySelector('.claims-provider-list-buttons');
-                    const localSection = document.querySelector('#localAccountForm, .localAccount');
-                    
-                    if (socialSection && localSection && !document.querySelector('.custom-separator')) {
-                        const separator = document.createElement('div');
-                        separator.className = 'custom-separator';
-                        separator.innerHTML = '<span>o continúa con</span>';
-                        
-                        socialSection.parentNode.insertBefore(separator, localSection);
-                    }
-
-                    // MÉTODO 6: Forzar estilos en inputs (mantener el que ya funciona)
-                    const inputs = document.querySelectorAll('input[type="email"], input[type="password"], input[type="text"], .textInput');
-                    inputs.forEach(input => {
-                        input.addEventListener('focus', function() {
-                            this.style.cssText += `
-                                border-color: #667eea !important;
-                                background: white !important;
-                                box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
-                                transform: translateY(-1px) !important;
-                            `;
-                        });
-
-                        input.addEventListener('blur', function() {
-                            this.style.cssText = this.style.cssText
-                                .replace(/border-color: #667eea[^;]*;/g, 'border-color: #e5e7eb !important;')
-                                .replace(/background: white[^;]*;/g, 'background: #f8fafc !important;')
-                                .replace(/box-shadow: 0 0 0 4px[^;]*;/g, '')
-                                .replace(/transform: translateY[^;]*;/g, '');
-                        });
-                    });
-
-                }, 100);
-            }
-
-            // Ejecutar inmediatamente y varias veces
-            eliminateOR();
-            setTimeout(eliminateOR, 300);
-            setTimeout(eliminateOR, 600);
-            setTimeout(eliminateOR, 1000);
-            setTimeout(eliminateOR, 1500);
-            setTimeout(eliminateOR, 2000);
-
-            // Observar cambios y ejecutar cada vez que se modifique el DOM
-            const observer = new MutationObserver(function(mutations) {
-                let shouldRun = false;
-                mutations.forEach(function(mutation) {
-                    if (mutation.addedNodes.length > 0) {
-                        mutation.addedNodes.forEach(node => {
-                            if (node.nodeType === 1 && (node.tagName === 'H2' || node.textContent === 'OR')) {
-                                shouldRun = true;
-                            }
-                        });
+            function cleanupPage() {
+                // Eliminar elementos OR
+                document.querySelectorAll('h2').forEach(h2 => {
+                    if (h2.textContent && h2.textContent.trim() === 'OR') {
+                        h2.remove();
                     }
                 });
-                if (shouldRun) {
-                    eliminateOR();
-                }
-            });
 
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true,
-                characterData: true
-            });
+                // Agregar separador personalizado
+                const socialSection = document.querySelector('.claims-provider-list-buttons');
+                const localSection = document.querySelector('#localAccountForm, .localAccount');
+                
+                if (socialSection && localSection && !document.querySelector('.custom-separator')) {
+                    const separator = document.createElement('div');
+                    separator.className = 'custom-separator';
+                    separator.innerHTML = '<span>o continúa con</span>';
+                    socialSection.parentNode.insertBefore(separator, localSection);
+                }
+            }
+
+            // Ejecutar limpieza
+            cleanupPage();
+            setTimeout(cleanupPage, 500);
+            setTimeout(cleanupPage, 1000);
+
+            // Observar cambios
+            const observer = new MutationObserver(cleanupPage);
+            observer.observe(document.body, { childList: true, subtree: true });
         });
     </script>
 </body>
