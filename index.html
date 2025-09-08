@@ -197,14 +197,35 @@
             text-decoration: underline !important;
         }
 
-        /* OCULTAR elementos no deseados */
+        /* OCULTAR elementos no deseados - MEJORADO */
         #createAccount,
         .create-account-link,
         .helpText,
         .localAccount_create_link,
         [data-bind*="createAccount"],
         .intro p:contains("Don't have"),
-        [href*="createAccount"] {
+        [href*="createAccount"],
+        [href*="Sign up now"] {
+            display: none !important;
+        }
+
+        /* Ocultar todos los OR excepto el primero */
+        #api > div:nth-child(n+3):contains("OR"),
+        .localAccount + *:contains("OR"),
+        .entry-item ~ *:contains("OR") {
+            display: none !important;
+        }
+
+        /* Ocultar texto específico "Don't have an account" */
+        p:contains("Don't have an account"),
+        div:contains("Don't have an account"),
+        span:contains("Don't have an account") {
+            display: none !important;
+        }
+
+        /* Ocultar el último OR y todo lo que viene después del formulario */
+        .localAccount ~ div:contains("OR"),
+        .localAccount ~ div:contains("Don't have") {
             display: none !important;
         }
 
@@ -240,25 +261,54 @@
     </div>
 
     <script>
-        // Script para reorganizar elementos
         document.addEventListener('DOMContentLoaded', function() {
-            function reorganizeElements() {
+            function hideUnwantedElements() {
                 setTimeout(function() {
-                    // Ocultar elementos no deseados
-                    const elementsToHide = [
+                    // Ocultar elementos específicos
+                    const selectorsToHide = [
                         '#createAccount',
-                        '.create-account-link',
+                        '.create-account-link', 
                         '.helpText',
-                        '.localAccount_create_link',
-                        '[href*="createAccount"]'
+                        '[href*="createAccount"]',
+                        '[href*="Sign up now"]'
                     ];
 
-                    elementsToHide.forEach(selector => {
+                    selectorsToHide.forEach(selector => {
                         const elements = document.querySelectorAll(selector);
                         elements.forEach(el => el.style.display = 'none');
                     });
 
-                    // Agregar títulos a las secciones
+                    // Ocultar texto que contenga "Don't have" o OR duplicados
+                    const allElements = document.querySelectorAll('*');
+                    allElements.forEach(element => {
+                        if (element.textContent) {
+                            const text = element.textContent.trim();
+                            
+                            // Ocultar "Don't have an account" y enlaces relacionados
+                            if (text.includes("Don't have an account") || 
+                                text.includes("Sign up now")) {
+                                element.style.display = 'none';
+                                return;
+                            }
+                            
+                            // Ocultar OR duplicados - mantener solo el primero
+                            if (text === 'OR') {
+                                const allORs = document.querySelectorAll('*');
+                                let orCount = 0;
+                                for (let el of allORs) {
+                                    if (el.textContent && el.textContent.trim() === 'OR') {
+                                        orCount++;
+                                        if (orCount > 1 && el === element) {
+                                            element.style.display = 'none';
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Agregar títulos a las secciones si no existen
                     const socialButtons = document.querySelectorAll('.accountButton');
                     if (socialButtons.length > 0 && !document.querySelector('.social-title-added')) {
                         const socialSection = document.createElement('div');
@@ -286,17 +336,22 @@
                         // Marcar como procesado
                         document.body.classList.add('social-title-added');
                     }
+
                 }, 500);
             }
 
-            reorganizeElements();
+            hideUnwantedElements();
 
             // Observar cambios en el DOM
-            const observer = new MutationObserver(reorganizeElements);
+            const observer = new MutationObserver(hideUnwantedElements);
             observer.observe(document.body, {
                 childList: true,
                 subtree: true
             });
+
+            // Ejecutar múltiples veces para asegurar que se aplique
+            setTimeout(hideUnwantedElements, 1000);
+            setTimeout(hideUnwantedElements, 2000);
         });
     </script>
 </body>
