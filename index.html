@@ -66,21 +66,6 @@
             margin-top: 20px;
         }
 
-        /* Sección de federación */
-        .social-section {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .social-title {
-            color: #333;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
         /* Estilizar botón de empresa */
         .accountButton {
             width: 100% !important;
@@ -101,41 +86,6 @@
         .accountButton:hover {
             transform: translateY(-2px) !important;
             box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3) !important;
-        }
-
-        /* Separador */
-        .separator {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .separator::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        .separator span {
-            background: white;
-            padding: 0 15px;
-            color: #666;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Sección local */
-        .local-section .section-title {
-            color: #333;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: center;
         }
 
         /* Estilizar campos locales */
@@ -197,35 +147,26 @@
             text-decoration: underline !important;
         }
 
-        /* OCULTAR elementos no deseados - MEJORADO */
+        /* OCULTAR TODO DESPUÉS DEL SEGUNDO ELEMENTO */
+        #api > div:nth-child(3),
+        #api > div:nth-child(n+3) {
+            display: none !important;
+        }
+
+        /* OCULTAR elementos específicos por contenido */
+        *:contains("Don't have an account"),
+        *:contains("Sign up now") {
+            display: none !important;
+        }
+
+        /* OCULTAR por selectores específicos */
         #createAccount,
         .create-account-link,
         .helpText,
         .localAccount_create_link,
-        [data-bind*="createAccount"],
-        .intro p:contains("Don't have"),
         [href*="createAccount"],
-        [href*="Sign up now"] {
-            display: none !important;
-        }
-
-        /* Ocultar todos los OR excepto el primero */
-        #api > div:nth-child(n+3):contains("OR"),
-        .localAccount + *:contains("OR"),
-        .entry-item ~ *:contains("OR") {
-            display: none !important;
-        }
-
-        /* Ocultar texto específico "Don't have an account" */
-        p:contains("Don't have an account"),
-        div:contains("Don't have an account"),
-        span:contains("Don't have an account") {
-            display: none !important;
-        }
-
-        /* Ocultar el último OR y todo lo que viene después del formulario */
-        .localAccount ~ div:contains("OR"),
-        .localAccount ~ div:contains("Don't have") {
+        [href*="Sign up now"],
+        [data-bind*="createAccount"] {
             display: none !important;
         }
 
@@ -262,96 +203,91 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function hideUnwantedElements() {
+            function aggressiveHiding() {
                 setTimeout(function() {
-                    // Ocultar elementos específicos
-                    const selectorsToHide = [
-                        '#createAccount',
-                        '.create-account-link', 
-                        '.helpText',
-                        '[href*="createAccount"]',
-                        '[href*="Sign up now"]'
-                    ];
+                    // Ocultar el tercer elemento y siguientes del contenedor API
+                    const apiContainer = document.getElementById('api');
+                    if (apiContainer) {
+                        const children = apiContainer.children;
+                        for (let i = 2; i < children.length; i++) {
+                            children[i].style.display = 'none';
+                        }
+                    }
 
-                    selectorsToHide.forEach(selector => {
-                        const elements = document.querySelectorAll(selector);
-                        elements.forEach(el => el.style.display = 'none');
-                    });
-
-                    // Ocultar texto que contenga "Don't have" o OR duplicados
+                    // Buscar y ocultar cualquier elemento que contenga texto específico
                     const allElements = document.querySelectorAll('*');
                     allElements.forEach(element => {
-                        if (element.textContent) {
-                            const text = element.textContent.trim();
+                        const text = element.textContent || element.innerText || '';
+                        
+                        if (text.includes("Don't have an account") || 
+                            text.includes("Sign up now") ||
+                            (text.trim() === "OR" && element.previousElementSibling && 
+                             element.previousElementSibling.querySelector('.sendButton'))) {
                             
-                            // Ocultar "Don't have an account" y enlaces relacionados
-                            if (text.includes("Don't have an account") || 
-                                text.includes("Sign up now")) {
-                                element.style.display = 'none';
-                                return;
-                            }
+                            element.style.display = 'none';
                             
-                            // Ocultar OR duplicados - mantener solo el primero
-                            if (text === 'OR') {
-                                const allORs = document.querySelectorAll('*');
-                                let orCount = 0;
-                                for (let el of allORs) {
-                                    if (el.textContent && el.textContent.trim() === 'OR') {
-                                        orCount++;
-                                        if (orCount > 1 && el === element) {
-                                            element.style.display = 'none';
-                                            break;
-                                        }
-                                    }
+                            // También ocultar elementos padre si solo contienen este texto
+                            let parent = element.parentElement;
+                            while (parent && parent !== document.body) {
+                                const parentText = parent.textContent.trim();
+                                if (parentText === text.trim() || 
+                                    (parentText.includes("Don't have") && parentText.length < 50)) {
+                                    parent.style.display = 'none';
+                                    parent = parent.parentElement;
+                                } else {
+                                    break;
                                 }
                             }
                         }
                     });
 
-                    // Agregar títulos a las secciones si no existen
-                    const socialButtons = document.querySelectorAll('.accountButton');
-                    if (socialButtons.length > 0 && !document.querySelector('.social-title-added')) {
-                        const socialSection = document.createElement('div');
-                        socialSection.className = 'social-section';
-                        socialSection.innerHTML = '<div class="social-title">🏢 Acceso Corporativo</div>';
-                        
-                        socialButtons[0].parentNode.insertBefore(socialSection, socialButtons[0]);
-                        socialSection.appendChild(socialButtons[0]);
-                        
-                        const separator = document.createElement('div');
-                        separator.className = 'separator';
-                        separator.innerHTML = '<span>o</span>';
-                        socialSection.parentNode.insertBefore(separator, socialSection.nextSibling);
-                        
-                        const localSection = document.createElement('div');
-                        localSection.className = 'local-section';
-                        localSection.innerHTML = '<div class="section-title">👤 Cuenta Local</div>';
-                        separator.parentNode.insertBefore(localSection, separator.nextSibling);
-                        
-                        const localForm = document.querySelector('.localAccount');
-                        if (localForm) {
-                            localSection.appendChild(localForm);
+                    // Buscar específicamente elementos después del formulario local
+                    const localAccount = document.querySelector('.localAccount');
+                    if (localAccount) {
+                        let nextElement = localAccount.nextElementSibling;
+                        while (nextElement) {
+                            const text = nextElement.textContent || '';
+                            if (text.includes('OR') || text.includes("Don't have") || text.includes('Sign up')) {
+                                nextElement.style.display = 'none';
+                            }
+                            nextElement = nextElement.nextElementSibling;
                         }
-                        
-                        // Marcar como procesado
-                        document.body.classList.add('social-title-added');
                     }
 
-                }, 500);
+                    // Método de fuerza bruta: ocultar cualquier cosa después del botón Sign in
+                    const signInButton = document.querySelector('.sendButton');
+                    if (signInButton) {
+                        let current = signInButton.parentElement;
+                        while (current && current.nextElementSibling) {
+                            const next = current.nextElementSibling;
+                            const text = next.textContent || '';
+                            if (text.includes('OR') || text.includes("Don't have") || text.includes('Sign up')) {
+                                next.style.display = 'none';
+                            }
+                            current = next;
+                        }
+                    }
+
+                }, 200);
             }
 
-            hideUnwantedElements();
+            // Ejecutar múltiples veces para asegurar que funcione
+            aggressiveHiding();
+            setTimeout(aggressiveHiding, 500);
+            setTimeout(aggressiveHiding, 1000);
+            setTimeout(aggressiveHiding, 1500);
+            setTimeout(aggressiveHiding, 2000);
 
             // Observar cambios en el DOM
-            const observer = new MutationObserver(hideUnwantedElements);
+            const observer = new MutationObserver(aggressiveHiding);
             observer.observe(document.body, {
                 childList: true,
-                subtree: true
+                subtree: true,
+                attributes: true,
+                attributeOldValue: true,
+                characterData: true,
+                characterDataOldValue: true
             });
-
-            // Ejecutar múltiples veces para asegurar que se aplique
-            setTimeout(hideUnwantedElements, 1000);
-            setTimeout(hideUnwantedElements, 2000);
         });
     </script>
 </body>
