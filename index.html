@@ -207,6 +207,7 @@
                 setTimeout(function() {
                     // Ocultar el tercer elemento y siguientes del contenedor API
                     const apiContainer = document.getElementById('api');
+                    console.log('apiContainer', apiContainer)
                     if (apiContainer) {
                         const children = apiContainer.children;
                         for (let i = 2; i < children.length; i++) {
@@ -218,7 +219,7 @@
                     const allElements = document.querySelectorAll('*');
                     allElements.forEach(element => {
                         const text = element.textContent || element.innerText || '';
-                        
+                        console.log("text", text)
                         if (text.includes("Don't have an account") || 
                             text.includes("Sign up now") ||
                             (text.trim() === "OR" && element.previousElementSibling && 
@@ -243,6 +244,7 @@
 
                     // Buscar específicamente elementos después del formulario local
                     const localAccount = document.querySelector('.localAccount');
+                    console.log("localAccount", localAccount)
                     if (localAccount) {
                         let nextElement = localAccount.nextElementSibling;
                         while (nextElement) {
