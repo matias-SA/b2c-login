@@ -12,62 +12,82 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            min-height: 100vh !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
         }
 
         .login-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            padding: 40px;
-            max-width: 450px;
-            width: 100%;
+            background: white !important;
+            border-radius: 16px !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+            padding: 40px !important;
+            max-width: 450px !important;
+            width: 100% !important;
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 30px;
+            text-align: center !important;
+            margin-bottom: 30px !important;
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
+            width: 80px !important;
+            height: 80px !important;
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 0 auto 20px !important;
+            color: white !important;
+            font-size: 24px !important;
+            font-weight: bold !important;
         }
 
         h1 {
-            color: #333;
-            font-size: 24px;
-            font-weight: 300;
-            margin-bottom: 10px;
+            color: #333 !important;
+            font-size: 24px !important;
+            font-weight: 300 !important;
+            margin-bottom: 10px !important;
         }
 
         .subtitle {
-            color: #666;
-            font-size: 14px;
+            color: #666 !important;
+            font-size: 14px !important;
         }
 
         /* Estilizar elementos de B2C */
         #api {
-            margin-top: 20px;
+            margin-top: 20px !important;
+        }
+
+        /* OCULTAR OR DE MANERA MÁS AGRESIVA */
+        #api h2,
+        h2,
+        .divider,
+        div.divider,
+        [class="divider"],
+        #api > div:contains("OR"),
+        #api div:contains("OR"):not(.localAccount):not(.claims-provider-list-buttons) {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         /* Estilizar botón de empresa */
-        .accountButton {
+        .accountButton,
+        .accountButton:link,
+        .accountButton:visited,
+        .accountButton:hover,
+        .accountButton:active {
             width: 100% !important;
             padding: 16px 20px !important;
             border: none !important;
@@ -91,33 +111,18 @@
             background: linear-gradient(135deg, #4338ca, #6d28d9) !important;
         }
 
-        /* Separador elegante */
-        .custom-separator {
-            display: flex !important;
-            align-items: center !important;
-            text-align: center !important;
-            margin: 25px 0 !important;
-        }
-
-        .custom-separator::before,
-        .custom-separator::after {
-            content: '' !important;
-            flex: 1 !important;
-            height: 1px !important;
-            background: linear-gradient(90deg, transparent, #e5e7eb, transparent) !important;
-        }
-
-        .custom-separator span {
-            padding: 0 20px !important;
-            color: #6b7280 !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-        }
-
-        /* Mejorar estilo de inputs */
-        .textInput {
+        /* INPUTS - SELECTORES MÁS ESPECÍFICOS */
+        input[type="email"],
+        input[type="password"], 
+        input[type="text"],
+        input#email,
+        input#password,
+        input[name*="email"],
+        input[name*="password"],
+        .textInput,
+        input.textInput,
+        #localAccountForm input,
+        .localAccount input {
             width: 100% !important;
             padding: 16px 18px !important;
             border: 2px solid #e5e7eb !important;
@@ -128,9 +133,18 @@
             transition: all 0.3s ease !important;
             background: #f8fafc !important;
             color: #374151 !important;
+            box-sizing: border-box !important;
         }
 
-        .textInput:focus {
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="text"]:focus,
+        input#email:focus,
+        input#password:focus,
+        .textInput:focus,
+        input.textInput:focus,
+        #localAccountForm input:focus,
+        .localAccount input:focus {
             border-color: #667eea !important;
             background: white !important;
             outline: none !important;
@@ -138,13 +152,11 @@
             transform: translateY(-1px) !important;
         }
 
-        .textInput:hover:not(:focus) {
-            border-color: #d1d5db !important;
-            background: #ffffff !important;
-        }
-
-        /* Estilizar labels mejorados */
-        .entry-item label {
+        /* Labels */
+        .entry-item label,
+        label,
+        .password-label,
+        .email-label {
             display: block !important;
             margin-bottom: 8px !important;
             color: #374151 !important;
@@ -153,8 +165,12 @@
             letter-spacing: 0.5px !important;
         }
 
-        /* Estilizar botón de envío mejorado */
-        .sendButton {
+        /* Botón de envío */
+        .sendButton,
+        button[type="submit"],
+        input[type="submit"],
+        #next,
+        .localAccount button {
             width: 100% !important;
             background: linear-gradient(135deg, #667eea, #764ba2) !important;
             color: white !important;
@@ -171,18 +187,20 @@
             letter-spacing: 0.5px !important;
         }
 
-        .sendButton:hover {
+        .sendButton:hover,
+        button[type="submit"]:hover,
+        input[type="submit"]:hover,
+        #next:hover,
+        .localAccount button:hover {
             transform: translateY(-3px) !important;
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4) !important;
             background: linear-gradient(135deg, #5b21b6, #6366f1) !important;
         }
 
-        .sendButton:active {
-            transform: translateY(-1px) !important;
-        }
-
-        /* Enlace de contraseña olvidada mejorado */
-        .entry-item a {
+        /* Enlace de contraseña olvidada */
+        .entry-item a,
+        a[href*="forgot"],
+        .localAccount a {
             color: #667eea !important;
             text-decoration: none !important;
             font-size: 13px !important;
@@ -190,7 +208,9 @@
             transition: color 0.2s ease !important;
         }
 
-        .entry-item a:hover {
+        .entry-item a:hover,
+        a[href*="forgot"]:hover,
+        .localAccount a:hover {
             color: #4f46e5 !important;
             text-decoration: underline !important;
         }
@@ -198,20 +218,7 @@
         /* OCULTAR elementos específicos */
         .create,
         div.create,
-        .divider,
-        div.divider,
         [class="create"],
-        [class="divider"] {
-            display: none !important;
-        }
-
-        /* Ocultar OR específicos */
-        h2:contains("OR"),
-        div:contains("OR"):not(:contains("Portal")):not(:contains("Password")) {
-            display: none !important;
-        }
-
-        /* Ocultar elementos por contenido específico */
         #createAccount,
         .create-account-link,
         .helpText,
@@ -220,6 +227,9 @@
         [href*="Sign up now"],
         [data-bind*="createAccount"] {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
         }
 
         /* Reorganizar layout */
@@ -229,35 +239,15 @@
             padding: 0 !important;
         }
 
-        /* Mejorar el título de sección */
-        .claims-provider-list-buttons {
-            margin-bottom: 0 !important;
-        }
-
-        /* Estilo para errores */
-        .error_pageLevel {
-            background: #fef2f2 !important;
-            border: 1px solid #fecaca !important;
-            color: #dc2626 !important;
-            padding: 12px 16px !important;
-            border-radius: 8px !important;
-            margin: 15px 0 !important;
-            font-size: 14px !important;
-        }
-
         /* Responsive */
         @media (max-width: 480px) {
             .login-container {
-                padding: 20px;
-                margin: 10px;
+                padding: 20px !important;
+                margin: 10px !important;
             }
             
             h1 {
-                font-size: 20px;
-            }
-            
-            .textInput {
-                padding: 14px 16px !important;
+                font-size: 20px !important;
             }
         }
     </style>
@@ -275,75 +265,125 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function enhanceLoginForm() {
+            function forceStyleChanges() {
                 setTimeout(function() {
-                    // Ocultar todos los elementos con clase "divider" y "create"
-                    const unwantedElements = document.querySelectorAll(
-                        '.create, div.create, .divider, div.divider, [class="create"], [class="divider"]'
-                    );
-                    unwantedElements.forEach(element => {
-                        element.style.display = 'none';
-                    });
-
-                    // Ocultar específicamente elementos que contengan solo "OR"
-                    const allElements = document.querySelectorAll('*');
-                    allElements.forEach(element => {
-                        const text = element.textContent ? element.textContent.trim() : '';
-                        if (text === 'OR' && !element.querySelector('input') && !element.querySelector('button')) {
-                            element.style.display = 'none';
+                    // OCULTAR OR de manera más agresiva
+                    const h2Elements = document.querySelectorAll('h2');
+                    h2Elements.forEach(h2 => {
+                        if (h2.textContent && h2.textContent.trim() === 'OR') {
+                            h2.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important;';
+                            // También ocultar el contenedor padre si solo tiene OR
+                            if (h2.parentElement && h2.parentElement.textContent.trim() === 'OR') {
+                                h2.parentElement.style.cssText = 'display: none !important; visibility: hidden !important;';
+                            }
                         }
                     });
 
-                    // Agregar separador personalizado entre social y local
+                    // Forzar estilos en inputs
+                    const inputs = document.querySelectorAll('input[type="email"], input[type="password"], input[type="text"], .textInput');
+                    inputs.forEach(input => {
+                        input.style.cssText = `
+                            width: 100% !important;
+                            padding: 16px 18px !important;
+                            border: 2px solid #e5e7eb !important;
+                            border-radius: 12px !important;
+                            font-size: 15px !important;
+                            font-family: 'Segoe UI', sans-serif !important;
+                            margin: 8px 0 15px 0 !important;
+                            background: #f8fafc !important;
+                            color: #374151 !important;
+                            transition: all 0.3s ease !important;
+                        `;
+
+                        // Agregar event listeners para focus
+                        input.addEventListener('focus', function() {
+                            this.style.cssText += `
+                                border-color: #667eea !important;
+                                background: white !important;
+                                box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1) !important;
+                                transform: translateY(-1px) !important;
+                            `;
+                        });
+
+                        input.addEventListener('blur', function() {
+                            this.style.cssText = this.style.cssText.replace(/border-color: #667eea[^;]*;/g, 'border-color: #e5e7eb !important;')
+                                                                      .replace(/background: white[^;]*;/g, 'background: #f8fafc !important;')
+                                                                      .replace(/box-shadow: 0 0 0 4px[^;]*;/g, '')
+                                                                      .replace(/transform: translateY[^;]*;/g, '');
+                        });
+                    });
+
+                    // Forzar estilos en botones
+                    const buttons = document.querySelectorAll('.sendButton, button[type="submit"], input[type="submit"]');
+                    buttons.forEach(button => {
+                        button.style.cssText = `
+                            width: 100% !important;
+                            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+                            color: white !important;
+                            border: none !important;
+                            padding: 16px 20px !important;
+                            border-radius: 12px !important;
+                            font-size: 15px !important;
+                            font-weight: 600 !important;
+                            cursor: pointer !important;
+                            margin-top: 20px !important;
+                            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+                            transition: all 0.3s ease !important;
+                        `;
+                    });
+
+                    // Agregar separador personalizado
                     const socialSection = document.querySelector('.claims-provider-list-buttons');
                     const localSection = document.querySelector('#localAccountForm, .localAccount');
                     
                     if (socialSection && localSection && !document.querySelector('.custom-separator')) {
+                        // Remover cualquier H2 entre las secciones
+                        let nextElement = socialSection.nextElementSibling;
+                        while (nextElement && nextElement !== localSection) {
+                            if (nextElement.tagName === 'H2' || (nextElement.textContent && nextElement.textContent.trim() === 'OR')) {
+                                const toRemove = nextElement;
+                                nextElement = nextElement.nextElementSibling;
+                                toRemove.remove();
+                            } else {
+                                nextElement = nextElement.nextElementSibling;
+                            }
+                        }
+
+                        // Agregar separador personalizado
                         const separator = document.createElement('div');
                         separator.className = 'custom-separator';
-                        separator.innerHTML = '<span>o continúa con</span>';
+                        separator.style.cssText = `
+                            display: flex !important;
+                            align-items: center !important;
+                            text-align: center !important;
+                            margin: 25px 0 !important;
+                        `;
+                        separator.innerHTML = '<span style="padding: 0 20px; color: #6b7280; font-size: 13px; font-weight: 500;">o continúa con</span>';
                         
-                        // Insertar el separador entre las secciones
-                        if (socialSection.nextElementSibling) {
-                            socialSection.parentNode.insertBefore(separator, socialSection.nextElementSibling);
-                        } else {
-                            socialSection.parentNode.appendChild(separator);
-                        }
+                        // Agregar líneas antes y después
+                        const line1 = document.createElement('div');
+                        line1.style.cssText = 'flex: 1; height: 1px; background: #e5e7eb;';
+                        const line2 = document.createElement('div');
+                        line2.style.cssText = 'flex: 1; height: 1px; background: #e5e7eb;';
+                        
+                        separator.insertBefore(line1, separator.firstChild);
+                        separator.appendChild(line2);
+                        
+                        socialSection.parentNode.insertBefore(separator, localSection);
                     }
 
-                    // Mejorar placeholder de inputs
-                    const emailInput = document.querySelector('input[type="email"], input[name*="email"], input#email');
-                    if (emailInput) {
-                        emailInput.placeholder = '📧 tu@empresa.com';
-                    }
-
-                    const passwordInput = document.querySelector('input[type="password"], input[name*="password"], input#password');
-                    if (passwordInput) {
-                        passwordInput.placeholder = '🔒 Tu contraseña';
-                    }
-
-                    // Agregar iconos a los labels
-                    const labels = document.querySelectorAll('.entry-item label');
-                    labels.forEach(label => {
-                        const text = label.textContent;
-                        if (text.toLowerCase().includes('email')) {
-                            label.innerHTML = '📧 ' + text;
-                        } else if (text.toLowerCase().includes('password')) {
-                            label.innerHTML = '🔒 ' + text;
-                        }
-                    });
-
-                }, 300);
+                }, 200);
             }
 
-            // Ejecutar múltiples veces para asegurar que funcione
-            enhanceLoginForm();
-            setTimeout(enhanceLoginForm, 600);
-            setTimeout(enhanceLoginForm, 1000);
-            setTimeout(enhanceLoginForm, 1500);
+            // Ejecutar múltiples veces
+            forceStyleChanges();
+            setTimeout(forceStyleChanges, 500);
+            setTimeout(forceStyleChanges, 1000);
+            setTimeout(forceStyleChanges, 1500);
+            setTimeout(forceStyleChanges, 2000);
 
-            // Observar cambios en el DOM
-            const observer = new MutationObserver(enhanceLoginForm);
+            // Observar cambios
+            const observer = new MutationObserver(forceStyleChanges);
             observer.observe(document.body, {
                 childList: true,
                 subtree: true
