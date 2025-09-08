@@ -1,32 +1,303 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Portal de Proveedores - Iniciar Sesión</title>
     <style>
-        /* Ocultar SOLO el enlace de registro, mantener formulario */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Estilizar elementos de B2C */
+        #api {
+            margin-top: 20px;
+        }
+
+        /* Sección de federación */
+        .social-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .social-title {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Estilizar botón de empresa */
+        .accountButton {
+            width: 100% !important;
+            padding: 14px 20px !important;
+            border: 2px solid #2196f3 !important;
+            border-radius: 8px !important;
+            background: linear-gradient(135deg, #2196f3, #21cbf3) !important;
+            color: white !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+            display: block !important;
+            text-align: center !important;
+            margin: 10px 0 !important;
+        }
+
+        .accountButton:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3) !important;
+        }
+
+        /* Separador */
+        .separator {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .separator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .separator span {
+            background: white;
+            padding: 0 15px;
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sección local */
+        .local-section .section-title {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Estilizar campos locales */
+        .textInput {
+            width: 100% !important;
+            padding: 14px 16px !important;
+            border: 2px solid #e0e0e0 !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            margin: 10px 0 !important;
+            transition: all 0.3s ease !important;
+            background: #fafafa !important;
+        }
+
+        .textInput:focus {
+            border-color: #667eea !important;
+            background: white !important;
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        }
+
+        /* Estilizar labels */
+        .entry-item label {
+            display: block !important;
+            margin-bottom: 5px !important;
+            color: #333 !important;
+            font-weight: 500 !important;
+            font-size: 14px !important;
+        }
+
+        /* Estilizar botón de envío */
+        .sendButton {
+            width: 100% !important;
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            color: white !important;
+            border: none !important;
+            padding: 14px 20px !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            margin-top: 10px !important;
+        }
+
+        .sendButton:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3) !important;
+        }
+
+        /* Enlace de contraseña olvidada */
+        .entry-item a {
+            color: #667eea !important;
+            text-decoration: none !important;
+            font-size: 13px !important;
+        }
+
+        .entry-item a:hover {
+            text-decoration: underline !important;
+        }
+
+        /* OCULTAR elementos no deseados */
         #createAccount,
         .create-account-link,
         .helpText,
         .localAccount_create_link,
         [data-bind*="createAccount"],
-        .forgotPassword + .create-account,
-        .intro p:last-child {
+        .intro p:contains("Don't have"),
+        [href*="createAccount"] {
             display: none !important;
         }
-        
-        /* Mantener visible el formulario de login */
-        .localAccount,
-        #localAccountForm,
-        .entry-item,
-        .textInput,
-        .sendButton {
-            display: block !important;
+
+        /* Reorganizar layout */
+        .localAccount {
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="api"></div>
+    <div class="login-container">
+        <div class="header">
+            <div class="logo">P</div>
+            <h1>Portal de Proveedores</h1>
+            <p class="subtitle">Accede a tu cuenta</p>
+        </div>
+
+        <div id="api"></div>
+    </div>
+
+    <script>
+        // Script para reorganizar elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            function reorganizeElements() {
+                setTimeout(function() {
+                    // Ocultar elementos no deseados
+                    const elementsToHide = [
+                        '#createAccount',
+                        '.create-account-link',
+                        '.helpText',
+                        '.localAccount_create_link',
+                        '[href*="createAccount"]'
+                    ];
+
+                    elementsToHide.forEach(selector => {
+                        const elements = document.querySelectorAll(selector);
+                        elements.forEach(el => el.style.display = 'none');
+                    });
+
+                    // Agregar títulos a las secciones
+                    const socialButtons = document.querySelectorAll('.accountButton');
+                    if (socialButtons.length > 0 && !document.querySelector('.social-title-added')) {
+                        const socialSection = document.createElement('div');
+                        socialSection.className = 'social-section';
+                        socialSection.innerHTML = '<div class="social-title">🏢 Acceso Corporativo</div>';
+                        
+                        socialButtons[0].parentNode.insertBefore(socialSection, socialButtons[0]);
+                        socialSection.appendChild(socialButtons[0]);
+                        
+                        const separator = document.createElement('div');
+                        separator.className = 'separator';
+                        separator.innerHTML = '<span>o</span>';
+                        socialSection.parentNode.insertBefore(separator, socialSection.nextSibling);
+                        
+                        const localSection = document.createElement('div');
+                        localSection.className = 'local-section';
+                        localSection.innerHTML = '<div class="section-title">👤 Cuenta Local</div>';
+                        separator.parentNode.insertBefore(localSection, separator.nextSibling);
+                        
+                        const localForm = document.querySelector('.localAccount');
+                        if (localForm) {
+                            localSection.appendChild(localForm);
+                        }
+                        
+                        // Marcar como procesado
+                        document.body.classList.add('social-title-added');
+                    }
+                }, 500);
+            }
+
+            reorganizeElements();
+
+            // Observar cambios en el DOM
+            const observer = new MutationObserver(reorganizeElements);
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    </script>
 </body>
 </html>
