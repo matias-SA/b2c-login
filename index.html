@@ -66,20 +66,23 @@
             margin-top: 20px !important;
         }
 
-        /* OCULTAR OR DE MANERA MÁS AGRESIVA */
+        /* OCULTAR OR DE MANERA SÚPER ESPECÍFICA */
+        h2:contains("OR"),
         #api h2,
-        h2,
         .divider,
         div.divider,
         [class="divider"],
-        #api > div:contains("OR"),
-        #api div:contains("OR"):not(.localAccount):not(.claims-provider-list-buttons) {
+        #api > h2,
+        #api div h2 {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
-            height: 0 !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            height: 0px !important;
+            margin: 0px !important;
+            padding: 0px !important;
+            overflow: hidden !important;
+            position: absolute !important;
+            left: -9999px !important;
         }
 
         /* Estilizar botón de empresa */
@@ -111,7 +114,7 @@
             background: linear-gradient(135deg, #4338ca, #6d28d9) !important;
         }
 
-        /* INPUTS - SELECTORES MÁS ESPECÍFICOS */
+        /* INPUTS */
         input[type="email"],
         input[type="password"], 
         input[type="text"],
@@ -239,6 +242,31 @@
             padding: 0 !important;
         }
 
+        /* Separador personalizado */
+        .custom-separator {
+            display: flex !important;
+            align-items: center !important;
+            text-align: center !important;
+            margin: 25px 0 !important;
+        }
+
+        .custom-separator::before,
+        .custom-separator::after {
+            content: '' !important;
+            flex: 1 !important;
+            height: 1px !important;
+            background: #e5e7eb !important;
+        }
+
+        .custom-separator span {
+            padding: 0 20px !important;
+            color: #6b7280 !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            text-transform: lowercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .login-container {
@@ -265,37 +293,73 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function forceStyleChanges() {
+            function eliminateOR() {
                 setTimeout(function() {
-                    // OCULTAR OR de manera más agresiva
-                    const h2Elements = document.querySelectorAll('h2');
-                    h2Elements.forEach(h2 => {
+                    // MÉTODO 1: Buscar todos los H2 y ocultar los que digan "OR"
+                    const allH2 = document.querySelectorAll('h2');
+                    allH2.forEach(h2 => {
                         if (h2.textContent && h2.textContent.trim() === 'OR') {
-                            h2.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important; height: 0 !important;';
-                            // También ocultar el contenedor padre si solo tiene OR
-                            if (h2.parentElement && h2.parentElement.textContent.trim() === 'OR') {
-                                h2.parentElement.style.cssText = 'display: none !important; visibility: hidden !important;';
-                            }
+                            h2.remove(); // Eliminar completamente del DOM
                         }
                     });
 
-                    // Forzar estilos en inputs
+                    // MÉTODO 2: Buscar cualquier elemento que solo contenga "OR"
+                    const allElements = document.querySelectorAll('*');
+                    allElements.forEach(element => {
+                        if (element.textContent && 
+                            element.textContent.trim() === 'OR' && 
+                            !element.querySelector('input') && 
+                            !element.querySelector('button') &&
+                            !element.querySelector('a')) {
+                            element.remove(); // Eliminar completamente
+                        }
+                    });
+
+                    // MÉTODO 3: Buscar específicamente en el contenedor API
+                    const apiDiv = document.getElementById('api');
+                    if (apiDiv) {
+                        const children = Array.from(apiDiv.children);
+                        children.forEach(child => {
+                            if (child.textContent && child.textContent.trim() === 'OR') {
+                                child.remove();
+                            }
+                            // También buscar dentro de los hijos
+                            const innerElements = child.querySelectorAll('*');
+                            innerElements.forEach(inner => {
+                                if (inner.textContent && inner.textContent.trim() === 'OR' && inner.children.length === 0) {
+                                    inner.remove();
+                                }
+                            });
+                        });
+                    }
+
+                    // MÉTODO 4: Usar querySelector específico para H2 con texto OR
+                    const orHeaders = document.evaluate(
+                        "//h2[text()='OR']",
+                        document,
+                        null,
+                        XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+                        null
+                    );
+                    for (let i = 0; i < orHeaders.snapshotLength; i++) {
+                        orHeaders.snapshotItem(i).remove();
+                    }
+
+                    // MÉTODO 5: Agregar separador personalizado
+                    const socialSection = document.querySelector('.claims-provider-list-buttons');
+                    const localSection = document.querySelector('#localAccountForm, .localAccount');
+                    
+                    if (socialSection && localSection && !document.querySelector('.custom-separator')) {
+                        const separator = document.createElement('div');
+                        separator.className = 'custom-separator';
+                        separator.innerHTML = '<span>o continúa con</span>';
+                        
+                        socialSection.parentNode.insertBefore(separator, localSection);
+                    }
+
+                    // MÉTODO 6: Forzar estilos en inputs (mantener el que ya funciona)
                     const inputs = document.querySelectorAll('input[type="email"], input[type="password"], input[type="text"], .textInput');
                     inputs.forEach(input => {
-                        input.style.cssText = `
-                            width: 100% !important;
-                            padding: 16px 18px !important;
-                            border: 2px solid #e5e7eb !important;
-                            border-radius: 12px !important;
-                            font-size: 15px !important;
-                            font-family: 'Segoe UI', sans-serif !important;
-                            margin: 8px 0 15px 0 !important;
-                            background: #f8fafc !important;
-                            color: #374151 !important;
-                            transition: all 0.3s ease !important;
-                        `;
-
-                        // Agregar event listeners para focus
                         input.addEventListener('focus', function() {
                             this.style.cssText += `
                                 border-color: #667eea !important;
@@ -306,87 +370,46 @@
                         });
 
                         input.addEventListener('blur', function() {
-                            this.style.cssText = this.style.cssText.replace(/border-color: #667eea[^;]*;/g, 'border-color: #e5e7eb !important;')
-                                                                      .replace(/background: white[^;]*;/g, 'background: #f8fafc !important;')
-                                                                      .replace(/box-shadow: 0 0 0 4px[^;]*;/g, '')
-                                                                      .replace(/transform: translateY[^;]*;/g, '');
+                            this.style.cssText = this.style.cssText
+                                .replace(/border-color: #667eea[^;]*;/g, 'border-color: #e5e7eb !important;')
+                                .replace(/background: white[^;]*;/g, 'background: #f8fafc !important;')
+                                .replace(/box-shadow: 0 0 0 4px[^;]*;/g, '')
+                                .replace(/transform: translateY[^;]*;/g, '');
                         });
                     });
 
-                    // Forzar estilos en botones
-                    const buttons = document.querySelectorAll('.sendButton, button[type="submit"], input[type="submit"]');
-                    buttons.forEach(button => {
-                        button.style.cssText = `
-                            width: 100% !important;
-                            background: linear-gradient(135deg, #667eea, #764ba2) !important;
-                            color: white !important;
-                            border: none !important;
-                            padding: 16px 20px !important;
-                            border-radius: 12px !important;
-                            font-size: 15px !important;
-                            font-weight: 600 !important;
-                            cursor: pointer !important;
-                            margin-top: 20px !important;
-                            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
-                            transition: all 0.3s ease !important;
-                        `;
-                    });
-
-                    // Agregar separador personalizado
-                    const socialSection = document.querySelector('.claims-provider-list-buttons');
-                    const localSection = document.querySelector('#localAccountForm, .localAccount');
-                    
-                    if (socialSection && localSection && !document.querySelector('.custom-separator')) {
-                        // Remover cualquier H2 entre las secciones
-                        let nextElement = socialSection.nextElementSibling;
-                        while (nextElement && nextElement !== localSection) {
-                            if (nextElement.tagName === 'H2' || (nextElement.textContent && nextElement.textContent.trim() === 'OR')) {
-                                const toRemove = nextElement;
-                                nextElement = nextElement.nextElementSibling;
-                                toRemove.remove();
-                            } else {
-                                nextElement = nextElement.nextElementSibling;
-                            }
-                        }
-
-                        // Agregar separador personalizado
-                        const separator = document.createElement('div');
-                        separator.className = 'custom-separator';
-                        separator.style.cssText = `
-                            display: flex !important;
-                            align-items: center !important;
-                            text-align: center !important;
-                            margin: 25px 0 !important;
-                        `;
-                        separator.innerHTML = '<span style="padding: 0 20px; color: #6b7280; font-size: 13px; font-weight: 500;">o continúa con</span>';
-                        
-                        // Agregar líneas antes y después
-                        const line1 = document.createElement('div');
-                        line1.style.cssText = 'flex: 1; height: 1px; background: #e5e7eb;';
-                        const line2 = document.createElement('div');
-                        line2.style.cssText = 'flex: 1; height: 1px; background: #e5e7eb;';
-                        
-                        separator.insertBefore(line1, separator.firstChild);
-                        separator.appendChild(line2);
-                        
-                        socialSection.parentNode.insertBefore(separator, localSection);
-                    }
-
-                }, 200);
+                }, 100);
             }
 
-            // Ejecutar múltiples veces
-            forceStyleChanges();
-            setTimeout(forceStyleChanges, 500);
-            setTimeout(forceStyleChanges, 1000);
-            setTimeout(forceStyleChanges, 1500);
-            setTimeout(forceStyleChanges, 2000);
+            // Ejecutar inmediatamente y varias veces
+            eliminateOR();
+            setTimeout(eliminateOR, 300);
+            setTimeout(eliminateOR, 600);
+            setTimeout(eliminateOR, 1000);
+            setTimeout(eliminateOR, 1500);
+            setTimeout(eliminateOR, 2000);
 
-            // Observar cambios
-            const observer = new MutationObserver(forceStyleChanges);
+            // Observar cambios y ejecutar cada vez que se modifique el DOM
+            const observer = new MutationObserver(function(mutations) {
+                let shouldRun = false;
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length > 0) {
+                        mutation.addedNodes.forEach(node => {
+                            if (node.nodeType === 1 && (node.tagName === 'H2' || node.textContent === 'OR')) {
+                                shouldRun = true;
+                            }
+                        });
+                    }
+                });
+                if (shouldRun) {
+                    eliminateOR();
+                }
+            });
+
             observer.observe(document.body, {
                 childList: true,
-                subtree: true
+                subtree: true,
+                characterData: true
             });
         });
     </script>
