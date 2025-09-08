@@ -147,19 +147,21 @@
             text-decoration: underline !important;
         }
 
-        /* OCULTAR TODO DESPUÉS DEL SEGUNDO ELEMENTO */
-        #api > div:nth-child(3),
-        #api > div:nth-child(n+3) {
+        /* OCULTAR elementos específicos basados en la estructura que vimos */
+        .create,
+        div.create,
+        .divider:last-of-type,
+        div[class="create"] {
             display: none !important;
         }
 
-        /* OCULTAR elementos específicos por contenido */
-        *:contains("Don't have an account"),
-        *:contains("Sign up now") {
+        /* Ocultar el segundo divider y todo después */
+        .localAccount + .divider,
+        .localAccount ~ .divider {
             display: none !important;
         }
 
-        /* OCULTAR por selectores específicos */
+        /* Ocultar elementos por contenido específico */
         #createAccount,
         .create-account-link,
         .helpText,
@@ -203,92 +205,91 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function aggressiveHiding() {
+            function removeCreateSection() {
                 setTimeout(function() {
-                    // Ocultar el tercer elemento y siguientes del contenedor API
-                    const apiContainer = document.getElementById('api');
-                    console.log('apiContainer', apiContainer)
-                    if (apiContainer) {
-                        const children = apiContainer.children;
-                        for (let i = 2; i < children.length; i++) {
-                            children[i].style.display = 'none';
-                        }
-                    }
-
-                    // Buscar y ocultar cualquier elemento que contenga texto específico
-                    const allElements = document.querySelectorAll('*');
-                    allElements.forEach(element => {
-                        const text = element.textContent || element.innerText || '';
-                        console.log("text", text)
-                        if (text.includes("Don't have an account") || 
-                            text.includes("Sign up now") ||
-                            (text.trim() === "OR" && element.previousElementSibling && 
-                             element.previousElementSibling.querySelector('.sendButton'))) {
-                            
-                            element.style.display = 'none';
-                            
-                            // También ocultar elementos padre si solo contienen este texto
-                            let parent = element.parentElement;
-                            while (parent && parent !== document.body) {
-                                const parentText = parent.textContent.trim();
-                                if (parentText === text.trim() || 
-                                    (parentText.includes("Don't have") && parentText.length < 50)) {
-                                    parent.style.display = 'none';
-                                    parent = parent.parentElement;
-                                } else {
-                                    break;
-                                }
-                            }
+                    // Atacar específicamente la clase "create" que vimos en el DOM
+                    const createElements = document.querySelectorAll('.create, div.create, [class="create"]');
+                    createElements.forEach(element => {
+                        element.style.display = 'none';
+                        // También ocultar el padre si es necesario
+                        if (element.parentElement && element.parentElement.children.length === 1) {
+                            element.parentElement.style.display = 'none';
                         }
                     });
 
-                    // Buscar específicamente elementos después del formulario local
-                    const localAccount = document.querySelector('.localAccount');
-                    console.log("localAccount", localAccount)
-                    if (localAccount) {
-                        let nextElement = localAccount.nextElementSibling;
+                    // Ocultar dividers después del formulario local
+                    const localAccountForm = document.querySelector('#localAccountForm, .localAccount');
+                    if (localAccountForm) {
+                        let nextElement = localAccountForm.nextElementSibling;
                         while (nextElement) {
+                            const classes = nextElement.className || '';
                             const text = nextElement.textContent || '';
-                            if (text.includes('OR') || text.includes("Don't have") || text.includes('Sign up')) {
+                            
+                            if (classes.includes('divider') || 
+                                classes.includes('create') ||
+                                text.includes('OR') || 
+                                text.includes("Don't have")) {
                                 nextElement.style.display = 'none';
                             }
                             nextElement = nextElement.nextElementSibling;
                         }
                     }
 
-                    // Método de fuerza bruta: ocultar cualquier cosa después del botón Sign in
-                    const signInButton = document.querySelector('.sendButton');
-                    if (signInButton) {
-                        let current = signInButton.parentElement;
-                        while (current && current.nextElementSibling) {
-                            const next = current.nextElementSibling;
-                            const text = next.textContent || '';
-                            if (text.includes('OR') || text.includes("Don't have") || text.includes('Sign up')) {
-                                next.style.display = 'none';
+                    // Método específico basado en la estructura DOM que vimos
+                    const apiDiv = document.getElementById('api');
+                    if (apiDiv) {
+                        // Buscar el div con class="create" específicamente
+                        const createDiv = apiDiv.querySelector('div.create');
+                        if (createDiv) {
+                            createDiv.style.display = 'none';
+                            
+                            // También ocultar el divider que está antes
+                            const previousDiv = createDiv.previousElementSibling;
+                            if (previousDiv && previousDiv.className === 'divider') {
+                                previousDiv.style.display = 'none';
                             }
-                            current = next;
                         }
+
+                        // Buscar elementos por ID createAccount
+                        const createAccount = document.getElementById('createAccount');
+                        if (createAccount) {
+                            createAccount.style.display = 'none';
+                        }
+
+                        // Ocultar enlaces que contengan openSignUpSignIn
+                        const signUpLinks = document.querySelectorAll('a[href*="openSignUpSignIn"]');
+                        signUpLinks.forEach(link => {
+                            if (link.textContent.includes('Sign up now')) {
+                                link.style.display = 'none';
+                                // Ocultar también el contenedor padre
+                                let parent = link.parentElement;
+                                while (parent && parent !== apiDiv) {
+                                    if (parent.children.length === 1) {
+                                        parent.style.display = 'none';
+                                        parent = parent.parentElement;
+                                    } else {
+                                        break;
+                                    }
+                                }
+                            }
+                        });
                     }
 
                 }, 200);
             }
 
             // Ejecutar múltiples veces para asegurar que funcione
-            aggressiveHiding();
-            setTimeout(aggressiveHiding, 500);
-            setTimeout(aggressiveHiding, 1000);
-            setTimeout(aggressiveHiding, 1500);
-            setTimeout(aggressiveHiding, 2000);
+            removeCreateSection();
+            setTimeout(removeCreateSection, 500);
+            setTimeout(removeCreateSection, 1000);
+            setTimeout(removeCreateSection, 1500);
+            setTimeout(removeCreateSection, 2000);
 
             // Observar cambios en el DOM
-            const observer = new MutationObserver(aggressiveHiding);
+            const observer = new MutationObserver(removeCreateSection);
             observer.observe(document.body, {
                 childList: true,
-                subtree: true,
-                attributes: true,
-                attributeOldValue: true,
-                characterData: true,
-                characterDataOldValue: true
+                subtree: true
             });
         });
     </script>
