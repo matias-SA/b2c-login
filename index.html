@@ -1,238 +1,197 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Proveedores - Iniciar Sesión</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <title>ProvIA - Iniciar sesión</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-            background: linear-gradient(135deg, #2766a2 0%, #1e4a73 100%) !important;
-            min-height: 100vh !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 20px !important;
-        }
+  <style>
+    :root {
+      --primary: #0054a6;
+      --primary-dark: #003a73;
+      --background1: #0e61c5;
+      --background2: #04356e;
+      --card-bg: #ffffff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --error: #b91c1c;
+      --radius-card: 18px;
+    }
 
-        .login-container {
-            background: white !important;
-            border-radius: 16px !important;
-            box-shadow: 0 20px 40px rgba(39, 102, 162, 0.2) !important;
-            padding: 40px !important;
-            max-width: 450px !important;
-            width: 100% !important;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
 
-        .header {
-            text-align: center !important;
-        }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 20%, var(--background1), var(--background2));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
 
-        .logo {
-            width: 80px !important;
-            height: 80px !important;
-            background: linear-gradient(135deg, #2766a2, #1e4a73) !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            margin: 0 auto 20px !important;
-            color: white !important;
-            font-size: 24px !important;
-            font-weight: bold !important;
-        }
+    .page {
+      width: 100%;
+      max-width: 430px;
+    }
 
-        h1 {
-            color: #1e4a73 !important;
-            font-size: 24px !important;
-            font-weight: 300 !important;
-            margin-bottom: 10px !important;
-        }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      padding: 32px 32px 26px;
+    }
 
-        .subtitle {
-            color: #5a7a99 !important;
-            font-size: 14px !important;
-        }
+    .logo {
+      text-align: center;
+      margin-bottom: 22px;
+    }
 
-        /* Ocultar elementos no deseados */
-        h2, .divider, div.divider, .create, div.create,
-        #createAccount, .create-account-link, .helpText,
-        [href*="createAccount"], [href*="Sign up now"] {
-            display: none !important;
-        }
+    .logo img {
+      max-height: 44px;
+    }
 
-        /* Botón de empresa */
-        .accountButton {
-            width: 100% !important;
-            padding: 16px 20px !important;
-            border: none !important;
-            border-radius: 12px !important;
-            background: linear-gradient(135deg, #2766a2, #1e4a73) !important;
-            color: white !important;
-            font-size: 15px !important;
-            font-weight: 600 !important;
-            text-decoration: none !important;
-            transition: all 0.3s ease !important;
-            display: block !important;
-            text-align: center !important;
-            margin: 15px 0 25px 0 !important;
-            box-shadow: 0 4px 15px rgba(39, 102, 162, 0.3) !important;
-            cursor: pointer !important;
-        }
+    /* CONTENEDOR DONDE B2C INYECTA EL FORMULARIO */
+    #api {
+      margin-top: 10px;
 
-        .accountButton:hover {
-            transform: translateY(-3px) !important;
-            box-shadow: 0 8px 25px rgba(39, 102, 162, 0.4) !important;
-            background: linear-gradient(135deg, #1e4a73, #153a5a) !important;
-        }
+      .intro,
+      .divider,
+      .create {
+        display: none !important;
+      }
+    }
 
-        /* Inputs */
-        input[type="email"], input[type="password"], input[type="text"], .textInput {
-            width: 100% !important;
-            padding: 16px 18px !important;
-            border: 2px solid #e1e8ed !important;
-            border-radius: 12px !important;
-            font-size: 15px !important;
-            font-family: 'Segoe UI', sans-serif !important;
-            margin: 8px 0 15px 0 !important;
-            transition: all 0.3s ease !important;
-            background: #f8fafc !important;
-            color: #1e4a73 !important;
-        }
+    /* --- Estilos sobre los elementos que genera B2C --- */
 
-        input:focus {
-            border-color: #2766a2 !important;
-            background: white !important;
-            outline: none !important;
-            box-shadow: 0 0 0 4px rgba(39, 102, 162, 0.1) !important;
-            transform: translateY(-1px) !important;
-        }
+    #api .entry-item {
+      margin-bottom: 12px;
+    }
 
-        /* Labels */
-        .entry-item label, label {
-            display: block !important;
-            margin-bottom: 8px !important;
-            color: #1e4a73 !important;
-            font-weight: 600 !important;
-            font-size: 14px !important;
-        }
+    #api label {
+      font-size: 13px;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      display: inline-block;
+    }
 
-        /* Botón de envío */
-        .sendButton, button[type="submit"] {
-            width: 100% !important;
-            background: linear-gradient(135deg, #2766a2, #1e4a73) !important;
-            color: white !important;
-            border: none !important;
-            padding: 16px 20px !important;
-            border-radius: 12px !important;
-            font-size: 15px !important;
-            font-weight: 600 !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            margin-top: 20px !important;
-            box-shadow: 0 4px 15px rgba(39, 102, 162, 0.3) !important;
-            text-transform: uppercase !important;
-        }
+    #api input[type="text"],
+    #api input[type="password"],
+    #api input[type="email"] {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      background-color: #f9fafb;
+    }
 
-        .sendButton:hover, button[type="submit"]:hover {
-            transform: translateY(-3px) !important;
-            box-shadow: 0 8px 25px rgba(39, 102, 162, 0.4) !important;
-            background: linear-gradient(135deg, #1e4a73, #153a5a) !important;
-        }
+    #api input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(0, 84, 166, 0.25);
+      background-color: #ffffff;
+    }
 
-        /* Enlaces */
-        .entry-item a, a[href*="forgot"] {
-            color: #2766a2 !important;
-            text-decoration: none !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-        }
+    #api a {
+      font-size: 12px;
+      color: var(--primary);
+      text-decoration: none;
+    }
 
-        .entry-item a:hover, a[href*="forgot"]:hover {
-            color: #1e4a73 !important;
-            text-decoration: underline !important;
-        }
+    #api a:hover {
+      text-decoration: underline;
+    }
 
-        /* Separador personalizado */
-        .custom-separator {
-            display: flex !important;
-            align-items: center !important;
-            margin: 25px 0 !important;
-        }
+    /* Botón principal (Sign in) */
+    #api .buttons button,
+    #api input[type="submit"],
+    #api .sendButton {
+      width: 100%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 14px;
+      transition: background 0.15s ease, transform 0.05s ease,
+        box-shadow 0.15s ease;
+      box-shadow: 0 8px 18px rgba(0, 84, 166, 0.4);
+    }
 
-        .custom-separator::before, .custom-separator::after {
-            content: '' !important;
-            flex: 1 !important;
-            height: 1px !important;
-            background: linear-gradient(90deg, transparent, #e1e8ed, transparent) !important;
-        }
+    #api .buttons button:hover,
+    #api input[type="submit"]:hover,
+    #api .sendButton:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 10px 22px rgba(0, 58, 115, 0.6);
+    }
 
-        .custom-separator span {
-            padding: 0 20px !important;
-            color: #5a7a99 !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-        }
+    #api .buttons button:active,
+    #api input[type="submit"]:active,
+    #api .sendButton:active {
+      transform: translateY(1px);
+    }
 
-        /* Responsive */
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 20px !important;
-                margin: 10px !important;
-            }
-            h1 {
-                font-size: 20px !important;
-            }
-        }
-    </style>
+    /* link "Sign up now" */
+    #api .create {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    #api .create a {
+      font-weight: 600;
+    }
+
+    /* mensajes de error */
+    #api .error,
+    #api .field-validation-error,
+    #api .error.pageLevel {
+      color: var(--error);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .footer {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 20px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="header">
-            <div class="logo">P</div>
-            <h1>Portal de Proveedores</h1>
-            <p class="subtitle">Accede a tu cuenta</p>
-        </div>
-        <div id="api"></div>
-    </div>
+  <main class="page">
+    <section class="card">
+      <div class="logo">
+        <!-- Cambiá esta URL por tu logo real -->
+        <img src="https://devprovia.condor.solutions/assets/b2c/condor_solutions.png" alt="Open Solutions" />
+      </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function cleanupPage() {
-                // Eliminar elementos OR
-                document.querySelectorAll('h2').forEach(h2 => {
-                    if (h2.textContent && h2.textContent.trim() === 'OR') {
-                        h2.remove();
-                    }
-                });
+      <!-- AQUÍ B2C INYECTA EL FORMULARIO -->
+      <div id="api"></div>
+    </section>
 
-                // Agregar separador personalizado
-                const socialSection = document.querySelector('.claims-provider-list-buttons');
-                const localSection = document.querySelector('#localAccountForm, .localAccount');
-                
-                if (socialSection && localSection && !document.querySelector('.custom-separator')) {
-                    const separator = document.createElement('div');
-                    separator.className = 'custom-separator';
-                    separator.innerHTML = '<span>o continúa con</span>';
-                    socialSection.parentNode.insertBefore(separator, localSection);
-                }
-            }
-
-            // Ejecutar limpieza
-            cleanupPage();
-            setTimeout(cleanupPage, 500);
-            setTimeout(cleanupPage, 1000);
-
-            // Observar cambios
-            const observer = new MutationObserver(cleanupPage);
-            observer.observe(document.body, { childList: true, subtree: true });
-        });
-    </script>
+    <p class="footer">© Open Solutions · Provia</p>
+  </main>
 </body>
+
 </html>
