@@ -81,9 +81,15 @@
 
       .intro,
       .divider,
-      .create {
+      .create,
+      .helpLink,
+      a.helpLink {
         display: none !important;
       }
+    }
+
+    #api ul {
+      list-style-type: none;
     }
 
     /* --- Estilos sobre los elementos que genera B2C --- */
@@ -137,7 +143,7 @@
     #api input[type="submit"],
     #api .sendButton,
     #api .verifyButton {
-      width: 100%;
+      flex: 1;
       background: var(--primary);
       color: #ffffff;
       border: none;
@@ -146,7 +152,6 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 16px;
       transition: background 0.15s ease, transform 0.05s ease,
         box-shadow 0.15s ease;
       box-shadow: 0 8px 18px rgba(0, 84, 166, 0.4);
@@ -168,17 +173,26 @@
     }
 
     /* Botón secundario (Cancel) */
+    #api .buttons button#cancel,
     #api .buttons button.secondary,
     #api input[type="button"] {
-      background: #e5e7eb;
-      color: var(--text-main);
-      margin-top: 8px;
-      box-shadow: none;
+      background: #c7e9f5 !important;
+      color: #0369a1 !important;
+      box-shadow: none !important;
+      font-weight: 600;
     }
 
+    #api .buttons button#cancel:hover,
     #api .buttons button.secondary:hover,
     #api input[type="button"]:hover {
-      background: #d1d5db;
+      background: #a8ddf0 !important;
+    }
+
+    /* Contenedor de botones */
+    #api .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
     }
 
     /* link para solicitar código */
